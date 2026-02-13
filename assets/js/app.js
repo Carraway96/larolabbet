@@ -3,6 +3,8 @@
 
   const getSubjectById = (id) => data.subjects.find((subject) => subject.id === id);
   const getAreaById = (subject, areaId) => subject?.areas.find((area) => area.id === areaId);
+  const getFirstSubject = () => data.subjects[0];
+  const getFirstArea = (subject) => subject?.areas?.[0];
   const byId = (id) => document.getElementById(id);
 
   const createTopMenu = () => {
@@ -53,14 +55,22 @@
     if (!container) return;
 
     const params = new URLSearchParams(window.location.search);
-    const subject = getSubjectById(params.get('subject'));
+    const subjectId = params.get('subject');
+    const subject = getSubjectById(subjectId) || getFirstSubject();
     const heading = byId('subject-heading');
     const description = byId('subject-description');
 
     if (!subject) {
-      heading.textContent = 'Ämnet hittades inte';
-      description.textContent = 'Kontrollera länken eller uppdatera innehållet i content.js.';
+      heading.textContent = 'Inga ämnen hittades';
+      description.textContent = 'Lägg till minst ett ämne i content.js.';
       return;
+    }
+
+    if (!subjectId || !getSubjectById(subjectId)) {
+      const fallbackHint = byId('subject-fallback-hint');
+      if (fallbackHint) {
+        fallbackHint.textContent = 'Ogiltig eller saknad ämneslänk. Visar första tillgängliga ämnet.';
+      }
     }
 
     heading.textContent = subject.name;
@@ -124,12 +134,21 @@
     if (!main) return;
 
     const params = new URLSearchParams(window.location.search);
-    const subject = getSubjectById(params.get('subject'));
-    const area = getAreaById(subject, params.get('topic'));
+    const subjectId = params.get('subject');
+    const topicId = params.get('topic');
+    const subject = getSubjectById(subjectId) || getFirstSubject();
+    const area = getAreaById(subject, topicId) || getFirstArea(subject);
 
     if (!subject || !area) {
-      main.innerHTML = '<p>Området hittades inte. Kontrollera länken eller uppdatera content.js.</p>';
+      main.innerHTML = '<p>Inget område hittades. Lägg till minst ett område i content.js.</p>';
       return;
+    }
+
+    if (!subjectId || !topicId || !getSubjectById(subjectId) || !getAreaById(getSubjectById(subjectId), topicId)) {
+      const fallbackHint = byId('topic-fallback-hint');
+      if (fallbackHint) {
+        fallbackHint.textContent = 'Ogiltig eller saknad områdeslänk. Visar första tillgängliga område.';
+      }
     }
 
     byId('topic-breadcrumb').textContent = `${subject.name} / ${area.title}`;

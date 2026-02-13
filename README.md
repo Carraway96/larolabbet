@@ -149,3 +149,13 @@ Lägg istället in dina egna filer lokalt i:
 - `assets/pdfs/`
 
 Och uppdatera sökvägarna i `assets/js/content.js`.
+
+
+## Om sidan visar "Not Found"
+
+Om du öppnar `subject.html` eller `topic.html` direkt utan korrekta parametrar i länken kan sidan tidigare visa "Not Found"/"hittades inte".
+Mallen visar nu automatiskt första tillgängliga ämnet/området i sådana fall.
+
+Tips:
+- Öppna alltid från `index.html` först.
+- Kontrollera att `subject` och `topic` i URL motsvarar `id`-värden i `assets/js/content.js`.
