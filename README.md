@@ -1,161 +1,202 @@
-# Lärolabbet – mall för SO-sida
+# Lärolabbet
 
-Detta är en skalbar webbplatsmall där **allt innehåll ligger i en gemensam datastruktur** i `assets/js/content.js`.
+En responsiv, datadriven webbplats för undervisningsmaterial i SO. Webbplatsen innehåller tre återanvändbara sidmallar:
 
-## Sidor (mallar)
-1. **Startsida** (`index.html`) – visar alla ämnen.
-2. **Ämnessida** (`subject.html`) – visar lista av ämnesområden för valt ämne.
-3. **Områdessida** (`topic.html`) – visar text, Youtube, slideshow och PDF för valt område.
+1. **Startsida** – presenterar de fyra SO-ämnena.
+2. **Ämnessida** – listar arbetsområden inom ett ämne.
+3. **Arbetsområdessida** – kan kombinera text, YouTube-film, bildspel, dokumentvisare och inbäddad PDF på samma sida.
+
+Det första kompletta arbetsområdet är **Samhällskunskap → Lag & rätt**.
+
+## Starta lokalt
+
+Du behöver Node.js 20 eller senare.
+
+```bash
+npm install
+npm run dev
+```
+
+Öppna adressen som Vite visar, vanligtvis `http://localhost:5173`.
+
+Bygg produktionsversionen med:
+
+```bash
+npm run build
+```
+
+Den färdiga statiska webbplatsen skapas i `dist/`. Routing använder hash-länkar (`#/...`), vilket gör bygget kompatibelt med bland annat GitHub Pages utan specialregler för omdirigering.
 
 ## Filstruktur
 
 ```text
-larolabbet/
-├── index.html
-├── subject.html
-├── topic.html
-├── README.md
-└── assets/
-    ├── css/
-    │   └── styles.css
-    ├── js/
-    │   ├── app.js
-    │   └── content.js
-    └── images/
-        └── loggor/
-            └── (lägg dina loggor här)
+Lärolabbet/
+├─ public/
+│  ├─ assets/                         # Huvudlogga och gemensamma bilder
+│  └─ content/
+│     └─ lag-och-ratt/
+│        ├─ slides/                   # Presentationens webbilder
+│        └─ documents/                # Checklistans webbsidor
+├─ scripts/
+│  └─ prepare_pdf_assets.py           # Gör WebP-sidor av en PDF
+├─ src/
+│  ├─ components/                     # Meny, kort och innehållsvisare
+│  ├─ data/content.js                 # All navigation och allt sidinnehåll
+│  ├─ pages/                          # De tre sidmallarna
+│  ├─ App.jsx                         # Sidvägar
+│  ├─ main.jsx                        # Startpunkt
+│  └─ styles.css                      # Design och responsivitet
+├─ index.html
+├─ package.json
+└─ vite.config.js
 ```
 
-## Så lägger du till/ändrar innehåll
+## Det viktigaste: ändra innehåll
 
-### 1) Byt loggor
-Lägg dina loggofiler i `assets/images/loggor/` och uppdatera sökvägar i `content.js`.
+All navigation och allt redaktionellt innehåll finns i `src/data/content.js`. I normalfallet behöver du inte ändra komponenterna.
 
-Exempel:
-```js
-logo: "assets/images/loggor/historia-logo.png"
-```
+### Lägg till ett arbetsområde i ämneslistan
 
-### 2) Lägg till nytt ämne
-I `assets/js/content.js`, lägg till ett nytt objekt i `subjects`:
-
-```js
-{
-  id: "nytt-amne",
-  name: "Nytt ämne",
-  logo: "assets/images/loggor/nytt-amne-logo.png",
-  description: "Kort beskrivning",
-  areas: []
-}
-```
-
-### 3) Lägg till nytt ämnesområde
-I rätt ämnes `areas`, lägg till:
+Leta upp rätt ämne i `subjects` och lägg till ett objekt i dess `topics`-lista:
 
 ```js
 {
-  id: "nytt-omrade",
-  title: "Nytt område",
-  logo: "assets/images/loggor/nytt-omrade-logo.png",
-  summary: "Kort beskrivning",
-  content: {
-    textBlocks: [],
-    youtubeEmbeds: [],
-    slideshowImages: [],
-    pdfEmbeds: []
-  }
+  id: "demokrati",
+  title: "Demokrati",
+  description: "Så fattas beslut och så kan du påverka.",
+  status: "published",
+  icon: "vote",
 }
 ```
 
-### 4) Lägg till text
-Under `textBlocks`:
+`id` används i sidans adress. Använd små bokstäver, bindestreck och helst inga å, ä eller ö.
+
+### Skapa arbetsområdessidan
+
+Lägg sedan till samma `id` i `workAreas`:
 
 ```js
-textBlocks: [
-  {
-    heading: "Rubrik",
-    body: "Din text här"
-  }
-]
+"demokrati": {
+  id: "demokrati",
+  subjectId: "samhallskunskap",
+  title: "Demokrati",
+  kicker: "Samhällskunskap",
+  lead: "En kort introduktion till området.",
+  duration: "Arbetsområde",
+  updated: "Uppdaterat augusti 2026",
+  goals: ["Förklara vad demokrati betyder"],
+  blocks: [
+    // Lägg innehållsblock här i den ordning de ska visas.
+  ],
+}
 ```
 
-### 5) Lägg till Youtube (inbäddad)
-Under `youtubeEmbeds` (använd embed-länk):
+Sidan och länken skapas automatiskt. Ett ämne som bara finns under `topics` visas som en tydlig tom mallplats tills motsvarande post läggs till i `workAreas`.
+
+## Innehållsblock
+
+Blocken ligger i `blocks` och visas i samma ordning på samma arbetsområdessida.
+
+### Text
 
 ```js
-youtubeEmbeds: [
-  {
-    title: "Film om demokrati",
-    embedUrl: "https://www.youtube.com/embed/VIDEO_ID"
-  }
-]
+{
+  id: "introduktion",
+  type: "text",
+  eyebrow: "Start",
+  title: "Introduktion",
+  paragraphs: ["Första stycket.", "Andra stycket."],
+  callout: "En extra viktig sak att komma ihåg.",
+}
 ```
 
-### 6) Lägg till slideshow
-Under `slideshowImages`:
+### YouTube
+
+Använd bara filmens ID, alltså delen efter `youtu.be/` eller `watch?v=`.
 
 ```js
-slideshowImages: [
-  { src: "assets/images/loggor/bild1.jpg", alt: "Bild 1" },
-  { src: "assets/images/loggor/bild2.jpg", alt: "Bild 2" }
-]
+{
+  id: "film",
+  type: "video",
+  eyebrow: "Se",
+  title: "Introduktionsfilm",
+  description: "Kort beskrivning.",
+  youtubeId: "M7AI-0y852A",
+}
 ```
 
-### 7) Lägg till PDF
-Skapa t.ex. mappen `assets/pdfs/` och lägg filer där. Lägg sedan till i `pdfEmbeds`:
+Filmen bäddas in via YouTubes integritetsförbättrade domän.
+
+### Bildspel
+
+Lägg bilderna i exempelvis `public/content/demokrati/slides/` och ange sökvägarna utan inledande snedstreck:
 
 ```js
-pdfEmbeds: [
-  {
-    title: "Arbetsblad",
-    url: "assets/pdfs/arbetsblad.pdf"
-  }
-]
+{
+  id: "presentation",
+  type: "slideshow",
+  eyebrow: "Bläddra",
+  title: "Presentation",
+  description: "Använd pilarna för att byta bild.",
+  images: [
+    "content/demokrati/slides/slide-01.webp",
+    "content/demokrati/slides/slide-02.webp",
+  ],
+}
 ```
 
-## Navigation
-- Den vertikala ämnesmenyn finns högst upp på alla sidor.
-- Menyn genereras automatiskt från `subjects` i `content.js`.
+### Dokument utan nedladdningsknapp
 
-## Skalbarhet
-- Inga hårdkodade ämnen i HTML.
-- Alla ämnen, områden och innehållstyper styrs av `content.js`.
-- För fler ämnen/områden räcker det att lägga till dataobjekt.
+Det här är den rekommenderade modellen. PDF-sidorna görs om till webbilder, så originalfilen behöver inte publiceras:
 
-## Köra lokalt
+```js
+{
+  id: "checklista",
+  type: "document",
+  eyebrow: "Repetera",
+  title: "Checklista",
+  description: "Det viktigaste inför provet.",
+  images: ["content/demokrati/documents/checklista-01.webp"],
+}
+```
+
+Konvertera en PDF med det medföljande skriptet:
 
 ```bash
-python3 -m http.server 8000
+python -m pip install pymupdf pillow
+python scripts/prepare_pdf_assets.py "min-fil.pdf" "public/content/demokrati/documents" --prefix checklista
 ```
 
-Öppna sedan `http://localhost:8000`.
+### Inbäddad PDF
 
+Om du hellre vill använda webbläsarens PDF-visare lägger du PDF-filen i `public/content/...` och använder:
 
-## Om du inte kan skapa PR
+```js
+{
+  id: "dokument",
+  type: "pdf",
+  eyebrow: "Läs",
+  title: "Fördjupning",
+  src: "content/demokrati/dokument.pdf",
+}
+```
 
-Om du arbetar i Codex-miljön kan PR skapas automatiskt med verktyget `make_pr` efter att en commit har gjorts.
+Webbplatsen döljer visningsprogrammets verktygsfält där webbläsaren tillåter det. Viktigt: material som en besökare kan se i en webbläsare kan aldrig skyddas helt från kopiering eller nedladdning. Webbildsmodellen ovan gör däremot att original-PDF-filen inte behöver exponeras.
 
-Kort checklista:
-1. `git status` ska vara rent eller endast innehålla avsedda ändringar.
-2. Kör `git add .` och `git commit -m "Din ändring"`.
-3. Skapa därefter PR med tydlig titel och beskrivning.
+## Byt eller lägg till logotyper
 
+Huvudloggan ligger i `public/assets/larolabbet-logo.png`. Ersätt filen med en ny bild med samma namn för att byta den överallt.
 
-## Om "binärfiler stöds inte"
+Ämnen och arbetsområden använder i nuläget enhetliga linjeikoner. När separata ämnesloggor finns kan de läggas i `public/assets/subjects/` och visas genom en liten ändring i `Icon.jsx` eller kortkomponenterna.
 
-Om din miljö/PR-visning inte hanterar binärfiler (t.ex. `.png` eller `.pdf`) visar mallen nu inga incheckade exempelbinärer.
-Lägg istället in dina egna filer lokalt i:
-- `assets/images/loggor/`
-- `assets/pdfs/`
+## Responsivitet och tillgänglighet
 
-Och uppdatera sökvägarna i `assets/js/content.js`.
+- Fast vertikal ämnesmeny på större skärmar och utfällbar ämnesmeny på mobil.
+- Tangentbordsnavigering och tydliga fokusmarkeringar.
+- Bildspelet stöder vänster- och högerpil när visaren har fokus.
+- Layouten växlar från två kolumner till en kolumn på mindre skärmar.
+- Rörelse minimeras automatiskt om användaren har aktiverat reducerad rörelse.
 
+## Publicera på GitHub Pages
 
-## Om sidan visar "Not Found"
-
-Om du öppnar `subject.html` eller `topic.html` direkt utan korrekta parametrar i länken kan sidan tidigare visa "Not Found"/"hittades inte".
-Mallen visar nu automatiskt första tillgängliga ämnet/området i sådana fall.
-
-Tips:
-- Öppna alltid från `index.html` först.
-- Kontrollera att `subject` och `topic` i URL motsvarar `id`-värden i `assets/js/content.js`.
+Projektet använder relativa produktionssökvägar och hash-routing. Det kan därför publiceras från innehållet i `dist/` eller med ett vanligt GitHub Actions-flöde för Vite. Kör alltid `npm run build` före publicering.
