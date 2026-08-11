@@ -45,7 +45,14 @@ export const subjects = [
       { id: "forntiden-och-antiken", title: "Forntiden & antiken", description: "De första samhällena och antikens värld.", status: "planned", icon: "columns" },
       { id: "medeltiden", title: "Medeltiden", description: "Makt, tro och vardag i det medeltida samhället.", status: "planned", icon: "castle" },
       { id: "revolutioner", title: "Revolutioner", description: "Idéer och omvälvningar som förändrade världen.", status: "planned", icon: "sparkles" },
-      { id: "varldskrigen", title: "Världskrigen", description: "Konflikt, konsekvenser och vägen till vår egen tid.", status: "planned", icon: "history" },
+      {
+        id: "forsta-varldskriget",
+        title: "Första världskriget",
+        description: "Orsakerna, fronterna, nya vapen och krigets följder.",
+        meta: "Film · 28 bilder · checklista",
+        status: "published",
+        icon: "history",
+      },
     ],
   },
   {
@@ -56,7 +63,14 @@ export const subjects = [
     tone: "blue",
     description: "Tro, etik, livsfrågor och religionens roll i världen.",
     topics: [
-      { id: "varldsreligionerna", title: "Världsreligionerna", description: "Traditioner, tankar och praktiker i världens religioner.", status: "planned", icon: "earth" },
+      {
+        id: "islam",
+        title: "Islam",
+        description: "Muhammeds liv, islams grunder, inriktningar och de abrahamitiska religionerna.",
+        meta: "Film · 27 bilder · checklista",
+        status: "published",
+        icon: "earth",
+      },
       { id: "etik-och-livsfragor", title: "Etik & livsfrågor", description: "Att resonera om rätt, fel, mening och ansvar.", status: "planned", icon: "heart-handshake" },
       { id: "religion-och-samhalle", title: "Religion & samhälle", description: "Hur religion och samhälle påverkar varandra.", status: "planned", icon: "building" },
       { id: "identitet-och-livsaskadning", title: "Identitet & livsåskådning", description: "Identitet, sekulära synsätt och personliga frågor.", status: "planned", icon: "fingerprint" },
@@ -67,6 +81,16 @@ export const subjects = [
 const lessonSlides = Array.from(
   { length: 25 },
   (_, index) => `content/lag-och-ratt/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
+);
+
+const firstWorldWarSlides = Array.from(
+  { length: 28 },
+  (_, index) => `content/forsta-varldskriget/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
+);
+
+const islamSlides = Array.from(
+  { length: 27 },
+  (_, index) => `content/islam/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
 );
 
 export const workAreas = {
@@ -118,6 +142,110 @@ export const workAreas = {
         title: "Checklista inför prov",
         description: "Använd checklistan för att kontrollera att du kan områdets frågor och viktigaste begrepp.",
         images: ["content/lag-och-ratt/documents/checklista-01.webp"],
+      },
+    ],
+  },
+  "forsta-varldskriget": {
+    id: "forsta-varldskriget",
+    subjectId: "historia",
+    title: "Första världskriget",
+    kicker: "Historia",
+    lead: "Undersök varför första världskriget bröt ut, hur kriget förändrades av nya vapen och vilka följder konflikten fick för Europa och världen.",
+    duration: "Arbetsområde",
+    updated: "Uppdaterat augusti 2026",
+    goals: [
+      "Förklara orsakerna till första världskriget",
+      "Jämföra kriget på västfronten och östfronten",
+      "Beskriva hur nya vapen förändrade krigföringen",
+      "Resonera om hur kriget slutade och vilka följder det fick",
+    ],
+    blocks: [
+      {
+        id: "oversikt",
+        type: "text",
+        eyebrow: "Start",
+        title: "Det här ska vi undersöka",
+        paragraphs: [
+          "Första världskriget pågick mellan 1914 och 1918. I det här arbetsområdet undersöker du orsakerna till kriget, skotten i Sarajevo och hur allianserna drog in stora delar av världen i konflikten.",
+          "Du får också jämföra västfronten och östfronten, se hur nya vapen förändrade krigföringen och följa vägen fram till vapenstilleståndet och Versaillesfreden.",
+        ],
+        callout: "Arbeta gärna i ordning: börja med filmen, följ presentationen och använd checklistan när du repeterar inför provet.",
+      },
+      {
+        id: "film",
+        type: "video",
+        eyebrow: "Se",
+        title: "Introduktion till första världskriget",
+        description: "En introduktionsfilm som ger dig en överblick innan du går vidare till presentationen.",
+        youtubeId: "pFb3Ysi7oRU",
+      },
+      {
+        id: "presentation",
+        type: "slideshow",
+        eyebrow: "Bläddra",
+        title: "Presentation: Första världskriget",
+        description: "Använd pilarna eller tangentbordets höger- och vänsterpil. Du kan också hoppa direkt till en bild via miniatyrerna.",
+        images: firstWorldWarSlides,
+      },
+      {
+        id: "checklista",
+        type: "document",
+        eyebrow: "Repetera",
+        title: "Checklista inför prov",
+        description: "Använd checklistan för att kontrollera att du kan områdets frågor och viktigaste begrepp.",
+        images: ["content/forsta-varldskriget/documents/checklista-01.webp"],
+      },
+    ],
+  },
+  islam: {
+    id: "islam",
+    subjectId: "religion",
+    title: "Islam",
+    kicker: "Religion",
+    lead: "Lär dig om Muhammeds liv, islams heliga texter och handlingar samt hur islam hänger samman med de andra abrahamitiska religionerna.",
+    duration: "Arbetsområde",
+    updated: "Uppdaterat augusti 2026",
+    goals: [
+      "Beskriva viktiga händelser i Muhammeds liv",
+      "Förklara islams fem pelare och centrala begrepp",
+      "Jämföra sunni och shia",
+      "Resonera om likheter och skillnader mellan de abrahamitiska religionerna",
+    ],
+    blocks: [
+      {
+        id: "oversikt",
+        type: "text",
+        eyebrow: "Start",
+        title: "Det här ska vi undersöka",
+        paragraphs: [
+          "Islam är en monoteistisk och abrahamitisk religion. I det här arbetsområdet följer du viktiga händelser i Muhammeds liv och lär dig om Koranen, haditherna och islams fem pelare.",
+          "Du får också möta den muslimska kalendern, ramadan och eid al-fitr, jämföra sunni och shia samt undersöka likheter och skillnader mellan islam, judendom och kristendom.",
+        ],
+        callout: "Arbeta gärna i ordning: börja med filmen, följ presentationen och använd checklistan när du repeterar inför provet.",
+      },
+      {
+        id: "film",
+        type: "video",
+        eyebrow: "Se",
+        title: "Introduktion till islam",
+        description: "En introduktionsfilm som ger dig en överblick innan du går vidare till presentationen.",
+        youtubeId: "QNubbSHiaWw",
+      },
+      {
+        id: "presentation",
+        type: "slideshow",
+        eyebrow: "Bläddra",
+        title: "Presentation: Islam",
+        description: "Använd pilarna eller tangentbordets höger- och vänsterpil. Du kan också hoppa direkt till en bild via miniatyrerna.",
+        images: islamSlides,
+      },
+      {
+        id: "checklista",
+        type: "document",
+        eyebrow: "Repetera",
+        title: "Checklista inför prov: Islam",
+        description: "Använd checklistan för att kontrollera att du kan områdets frågor och viktigaste begrepp.",
+        images: ["content/islam/documents/checklista-01.webp"],
       },
     ],
   },

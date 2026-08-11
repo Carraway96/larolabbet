@@ -68,7 +68,7 @@ export function SlideshowBlock({ block }) {
       <BlockHeader block={block} icon={Presentation} />
       <figure className="slideshow" ref={figureRef} tabIndex="0" aria-label={`${block.title}, bild ${current + 1} av ${block.images.length}`}>
         <div className="slide-stage">
-          <img src={assetUrl(block.images[current])} alt={`Lag och rätt – presentationsbild ${current + 1}`} draggable="false" />
+          <img src={assetUrl(block.images[current])} alt={`${block.title} – presentationsbild ${current + 1}`} draggable="false" />
           <button className="slide-arrow previous" onClick={() => move(-1)} disabled={current === 0} aria-label="Föregående bild"><ChevronLeft /></button>
           <button className="slide-arrow next" onClick={() => move(1)} disabled={current === last} aria-label="Nästa bild"><ChevronRight /></button>
         </div>
