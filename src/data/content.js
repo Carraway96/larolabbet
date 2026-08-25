@@ -15,6 +15,14 @@ export const subjects = [
         status: "published",
         icon: "scale",
       },
+      {
+        id: "demokrati-diktatur-medier",
+        title: "Demokrati, diktatur & medier",
+        description: "Demokratiska principer, diktaturer, fria medier, censur och mänskliga rättigheter.",
+        meta: "Film · 29 bilder · checklista",
+        status: "published",
+        icon: "vote",
+      },
       { id: "demokrati-och-politik", title: "Demokrati & politik", description: "Beslut, makt och påverkan i Sverige och världen.", status: "planned", icon: "vote" },
       { id: "ekonomi-och-arbetsliv", title: "Ekonomi & arbetsliv", description: "Privatekonomi, samhällsekonomi och arbetsmarknad.", status: "planned", icon: "wallet" },
       { id: "medier-och-information", title: "Medier & information", description: "Källkritik, nyheter och det digitala samhället.", status: "planned", icon: "newspaper" },
@@ -83,6 +91,11 @@ const lessonSlides = Array.from(
   (_, index) => `content/lag-och-ratt/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
 );
 
+const democracyDictatorshipMediaSlides = Array.from(
+  { length: 29 },
+  (_, index) => `content/demokrati-diktatur-medier/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
+);
+
 const firstWorldWarSlides = Array.from(
   { length: 28 },
   (_, index) => `content/forsta-varldskriget/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
@@ -142,6 +155,58 @@ export const workAreas = {
         title: "Checklista inför prov",
         description: "Använd checklistan för att kontrollera att du kan områdets frågor och viktigaste begrepp.",
         images: ["content/lag-och-ratt/documents/checklista-01.webp"],
+      },
+    ],
+  },
+  "demokrati-diktatur-medier": {
+    id: "demokrati-diktatur-medier",
+    subjectId: "samhallskunskap",
+    title: "Demokrati, diktatur & medier",
+    kicker: "Samhällskunskap",
+    lead: "Undersök vad som kännetecknar demokrati och diktatur, hur olika statsskick fungerar och varför fria medier och mänskliga rättigheter är viktiga.",
+    duration: "Arbetsområde",
+    updated: "Uppdaterat augusti 2026",
+    goals: [
+      "Förklara skillnaden mellan direkt och representativ demokrati",
+      "Beskriva grundlagar, statsskick och hur en diktatur fungerar",
+      "Resonera om mediernas roll, censur och propaganda",
+      "Beskriva mänskliga rättigheter och barnkonventionen",
+    ],
+    blocks: [
+      {
+        id: "oversikt",
+        type: "text",
+        eyebrow: "Start",
+        title: "Det här ska vi undersöka",
+        paragraphs: [
+          "Vad gör ett land demokratiskt, och vad händer när en diktator samlar all makt? I det här arbetsområdet jämför du direkt och representativ demokrati, lär dig om grundlagar och möter statsskick som monarki, republik och teokrati.",
+          "Du undersöker också mediernas roll i en demokrati, hur censur och propaganda används i diktaturer samt hur mänskliga rättigheter och barnkonventionen hänger samman med hur ett land styrs.",
+        ],
+        callout: "Arbeta gärna i ordning: börja med filmen, följ presentationen och använd checklistan när du repeterar inför provet.",
+      },
+      {
+        id: "film",
+        type: "video",
+        eyebrow: "Se",
+        title: "Introduktion till demokrati, diktatur och medier",
+        description: "En introduktionsfilm som ger dig en överblick innan du går vidare till presentationen.",
+        youtubeId: "pZs7Qqb5AnE",
+      },
+      {
+        id: "presentation",
+        type: "slideshow",
+        eyebrow: "Bläddra",
+        title: "Presentation: Demokrati, diktatur och medier",
+        description: "Använd pilarna eller tangentbordets höger- och vänsterpil. Du kan också hoppa direkt till en bild via miniatyrerna.",
+        images: democracyDictatorshipMediaSlides,
+      },
+      {
+        id: "checklista",
+        type: "document",
+        eyebrow: "Repetera",
+        title: "Checklista inför prov",
+        description: "Använd checklistan för att kontrollera att du kan områdets frågor och viktigaste begrepp.",
+        images: ["content/demokrati-diktatur-medier/documents/checklista-01.webp"],
       },
     ],
   },
