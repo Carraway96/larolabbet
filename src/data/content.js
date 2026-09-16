@@ -23,9 +23,14 @@ export const subjects = [
         status: "published",
         icon: "vote",
       },
-      { id: "demokrati-och-politik", title: "Demokrati & politik", description: "Beslut, makt och påverkan i Sverige och världen.", status: "planned", icon: "vote" },
-      { id: "ekonomi-och-arbetsliv", title: "Ekonomi & arbetsliv", description: "Privatekonomi, samhällsekonomi och arbetsmarknad.", status: "planned", icon: "wallet" },
-      { id: "medier-och-information", title: "Medier & information", description: "Källkritik, nyheter och det digitala samhället.", status: "planned", icon: "newspaper" },
+      {
+        id: "sa-styrs-sverige",
+        title: "Så styrs Sverige",
+        description: "Riksdag, regering, kommuner, regioner och politiska ideologier.",
+        meta: "2 filmer · 25 bilder · checklista",
+        status: "published",
+        icon: "landmark",
+      },
     ],
   },
   {
@@ -106,7 +111,72 @@ const islamSlides = Array.from(
   (_, index) => `content/islam/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
 );
 
+const swedenGovernmentSlides = Array.from(
+  { length: 25 },
+  (_, index) => `content/sa-styrs-sverige/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
+);
+
 export const workAreas = {
+  "sa-styrs-sverige": {
+    id: "sa-styrs-sverige",
+    subjectId: "samhallskunskap",
+    title: "Så styrs Sverige",
+    kicker: "Samhällskunskap",
+    lead: "Undersök hur Sverige styrs, hur beslut fattas och hur politiska ideologier påverkar synen på samhället.",
+    duration: "Arbetsområde",
+    updated: "Uppdaterat september 2026",
+    goals: [
+      "Beskriva riksdagens, regeringens, regionernas och kommunernas uppgifter",
+      "Förklara parlamentarism, hur en lag blir till och Sveriges grundlagar",
+      "Jämföra socialism, liberalism och konservatism samt känna till Sveriges riksdagspartier",
+      "Beskriva EU:s uppgifter och hur beslut fattas inom EU",
+    ],
+    blocks: [
+      {
+        id: "oversikt",
+        type: "text",
+        eyebrow: "Start",
+        title: "Det här ska vi undersöka",
+        paragraphs: [
+          "Vem bestämmer i Sverige? I det här arbetsområdet lär du dig om val, riksdag och regering och undersöker vilka frågor kommuner och regioner ansvarar för. Du följer också hur en lag blir till och lär dig om Sveriges grundlagar.",
+          "Du jämför socialism, liberalism och konservatism och möter den politiska vänster–höger-skalan. Presentationen tar också upp EU och FN. Använd checklistan för att repetera frågor och begrepp inför provet.",
+        ],
+        callout: "Börja med filmerna, följ presentationen och repetera med checklistan. Skriv gärna egna förklaringar till begrepp som budget, parlamentarism, proposition och motion.",
+      },
+      {
+        id: "film-sa-styrs-sverige",
+        type: "video",
+        eyebrow: "Se",
+        title: "Så styrs Sverige – genomgång",
+        description: "Se genomgången och anteckna frågor att arbeta vidare med i presentationen.",
+        youtubeId: "3M3f74bKOFk",
+      },
+      {
+        id: "film-politiska-ideologier",
+        type: "video",
+        eyebrow: "Se",
+        title: "Politiska ideologier – genomgång",
+        description: "Fundera på hur socialism, liberalism och konservatism skiljer sig åt i synen på samhället.",
+        youtubeId: "r-so60HGjAs",
+      },
+      {
+        id: "presentation",
+        type: "slideshow",
+        eyebrow: "Bläddra",
+        title: "Presentation: Så styrs Sverige",
+        description: "Använd pilarna eller tangentbordets höger- och vänsterpil. Du kan också hoppa direkt till en bild via miniatyrerna.",
+        images: swedenGovernmentSlides,
+      },
+      {
+        id: "checklista",
+        type: "document",
+        eyebrow: "Repetera",
+        title: "Checklista inför prov: Så styrs Sverige",
+        description: "Använd checklistan för att kontrollera att du kan områdets frågor och viktigaste begrepp.",
+        images: ["content/sa-styrs-sverige/documents/checklista-01.webp"],
+      },
+    ],
+  },
   "lag-och-ratt": {
     id: "lag-och-ratt",
     subjectId: "samhallskunskap",
