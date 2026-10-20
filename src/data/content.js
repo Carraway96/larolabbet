@@ -55,6 +55,14 @@ export const subjects = [
     tone: "gold",
     description: "Människor, förändring och spår från dåtid till nutid.",
     topics: [
+      {
+        id: "flodkulturen-i-egypten",
+        title: "Flodkulturen i Egypten",
+        description: "Nilen, faraonerna, livet i forntida Egypten och hieroglyfernas betydelse.",
+        meta: "Film · 16 bilder · checklista",
+        status: "published",
+        icon: "columns",
+      },
       { id: "forntiden-och-antiken", title: "Forntiden & antiken", description: "De första samhällena och antikens värld.", status: "planned", icon: "columns" },
       { id: "medeltiden", title: "Medeltiden", description: "Makt, tro och vardag i det medeltida samhället.", status: "planned", icon: "castle" },
       { id: "revolutioner", title: "Revolutioner", description: "Idéer och omvälvningar som förändrade världen.", status: "planned", icon: "sparkles" },
@@ -116,7 +124,64 @@ const swedenGovernmentSlides = Array.from(
   (_, index) => `content/sa-styrs-sverige/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
 );
 
+const egyptRiverCivilizationSlides = Array.from(
+  { length: 16 },
+  (_, index) => `content/flodkulturen-i-egypten/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
+);
+
 export const workAreas = {
+  "flodkulturen-i-egypten": {
+    id: "flodkulturen-i-egypten",
+    subjectId: "historia",
+    title: "Flodkulturen i Egypten",
+    kicker: "Historia",
+    lead: "Undersök hur Nilen gjorde det möjligt för en flodkultur att växa fram och lär dig om makt, vardagsliv och skriftspråk i forntida Egypten.",
+    duration: "Arbetsområde",
+    updated: "Uppdaterat oktober 2026",
+    goals: [
+      "Förklara varför Nilen var viktig för jordbruket och livet i Egypten",
+      "Beskriva viktiga händelser under det gamla, mellersta och nya riket",
+      "Beskriva faraons roll, människors vardag och tron på livet efter döden",
+      "Förklara hur hieroglyferna användes och varför Rosettastenen är viktig för vår kunskap om Egypten",
+    ],
+    blocks: [
+      {
+        id: "oversikt",
+        type: "text",
+        eyebrow: "Start",
+        title: "Det här ska vi undersöka",
+        paragraphs: [
+          "Hur kunde ett stort rike växa fram vid Nilen? Presentationen börjar med övergången från jägare och samlare till bönder. Därefter undersöker du hur Nilens översvämningar och bevattning påverkade jordbruket i Egypten.",
+          "Du följer Egyptens gamla, mellersta och nya rike och lär dig om faraoner, pyramider, människors vardag och tron på livet efter döden. Du undersöker också hur hieroglyferna användes och hur Rosettastenen hjälpte oss att förstå skriften.",
+        ],
+        callout: "Börja med filmen, följ presentationen och använd checklistan inför provet. Öva på att förklara samband, till exempel hur Nilens vatten påverkade skördarna och människornas liv.",
+      },
+      {
+        id: "film",
+        type: "video",
+        eyebrow: "Se",
+        title: "Flodkulturen i forntida Egypten",
+        description: "Se genomgången och fundera på varför Nilen var så viktig för egyptierna.",
+        youtubeId: "DAaU0dU8rBs",
+      },
+      {
+        id: "presentation",
+        type: "slideshow",
+        eyebrow: "Bläddra",
+        title: "Presentation: Flodkulturer",
+        description: "16 bilder om jordbrukets uppkomst och forntida Egypten. Använd pilarna, tangentbordets höger- och vänsterpil eller miniatyrerna för att bläddra.",
+        images: egyptRiverCivilizationSlides,
+      },
+      {
+        id: "checklista",
+        type: "document",
+        eyebrow: "Repetera",
+        title: "Checklista inför prov: Flodkulturer",
+        description: "Repetera Nilens betydelse, Egyptens tre epoker, hieroglyferna och Rosettastenen. Använd begreppslistan för att kontrollera vad du kan.",
+        images: ["content/flodkulturen-i-egypten/documents/checklista-01.webp"],
+      },
+    ],
+  },
   "sa-styrs-sverige": {
     id: "sa-styrs-sverige",
     subjectId: "samhallskunskap",
