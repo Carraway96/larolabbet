@@ -63,9 +63,6 @@ export const subjects = [
         status: "published",
         icon: "columns",
       },
-      { id: "forntiden-och-antiken", title: "Forntiden & antiken", description: "De första samhällena och antikens värld.", status: "planned", icon: "columns" },
-      { id: "medeltiden", title: "Medeltiden", description: "Makt, tro och vardag i det medeltida samhället.", status: "planned", icon: "castle" },
-      { id: "revolutioner", title: "Revolutioner", description: "Idéer och omvälvningar som förändrade världen.", status: "planned", icon: "sparkles" },
       {
         id: "forsta-varldskriget",
         title: "Första världskriget",
@@ -100,9 +97,6 @@ export const subjects = [
         status: "published",
         icon: "earth",
       },
-      { id: "etik-och-livsfragor", title: "Etik & livsfrågor", description: "Att resonera om rätt, fel, mening och ansvar.", status: "planned", icon: "heart-handshake" },
-      { id: "religion-och-samhalle", title: "Religion & samhälle", description: "Hur religion och samhälle påverkar varandra.", status: "planned", icon: "building" },
-      { id: "identitet-och-livsaskadning", title: "Identitet & livsåskådning", description: "Identitet, sekulära synsätt och personliga frågor.", status: "planned", icon: "fingerprint" },
     ],
   },
 ];
