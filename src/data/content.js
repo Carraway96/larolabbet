@@ -85,6 +85,14 @@ export const subjects = [
     description: "Tro, etik, livsfrågor och religionens roll i världen.",
     topics: [
       {
+        id: "hinduism-och-buddhism",
+        title: "Hinduism och buddhism",
+        description: "Gudar, återfödelse, Buddhas liv och vägar till befrielse.",
+        meta: "2 filmer · 32 bilder · checklista",
+        status: "published",
+        icon: "lotus",
+      },
+      {
         id: "islam",
         title: "Islam",
         description: "Muhammeds liv, islams grunder, inriktningar och de abrahamitiska religionerna.",
@@ -129,7 +137,72 @@ const egyptRiverCivilizationSlides = Array.from(
   (_, index) => `content/flodkulturen-i-egypten/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
 );
 
+const hinduismBuddhismSlides = Array.from(
+  { length: 32 },
+  (_, index) => `content/hinduism-och-buddhism/slides/slide-${String(index + 1).padStart(2, "0")}.webp`,
+);
+
 export const workAreas = {
+  "hinduism-och-buddhism": {
+    id: "hinduism-och-buddhism",
+    subjectId: "religion",
+    title: "Hinduism och buddhism",
+    kicker: "Religion",
+    lead: "Lär dig om hinduismens och buddhismens tankar om livet, återfödelse och befrielse. Undersök traditioner och jämför likheter och skillnader mellan religionerna.",
+    duration: "Arbetsområde",
+    updated: "Uppdaterat oktober 2026",
+    goals: [
+      "Förklara centrala begrepp som karma, samsara, dharma, atman och Brahman",
+      "Beskriva hinduismens gudar, heliga skrifter, traditioner och kastsystemet",
+      "Berätta om Siddharta Gautama och hur buddhismen uppstod",
+      "Förklara de fyra ädla sanningarna och den åttafaldiga vägen samt jämföra moksha och nirvana",
+    ],
+    blocks: [
+      {
+        id: "oversikt",
+        type: "text",
+        eyebrow: "Start",
+        title: "Det här ska vi undersöka",
+        paragraphs: [
+          "Vad innebär återfödelse, och hur kan människan nå befrielse? I den första delen möter du hinduismens tankar om Brahman, atman, karma och samsara. Du lär dig också om gudar, heliga skrifter, kastsystemet och traditioner som puja och Diwali.",
+          "I den andra delen följer du berättelsen om Siddharta Gautama och hur han blev Buddha. Du undersöker buddhismens syn på lidande och begär, den gyllene medelvägen, de fyra ädla sanningarna och den åttafaldiga vägen. Jämför sedan religionernas tankar om återfödelse och befrielse.",
+        ],
+        callout: "Börja med filmerna, följ presentationen och repetera med checklistan. Checklistan tar även upp abrahamitiska religioner, så repetera gärna vad du har lärt dig om judendom, kristendom och islam.",
+      },
+      {
+        id: "film-hinduism",
+        type: "video",
+        eyebrow: "Se",
+        title: "Hinduism – genomgång",
+        description: "Se genomgången och anteckna viktiga begrepp inför arbetet med presentationens första del.",
+        youtubeId: "5Bis3I5Rka4",
+      },
+      {
+        id: "film-buddhism",
+        type: "video",
+        eyebrow: "Se",
+        title: "Buddhism – genomgång",
+        description: "Se genomgången och fundera på hur buddhismens tankar om återfödelse och befrielse kan jämföras med hinduismens.",
+        youtubeId: "T1fFPSFNXFk",
+      },
+      {
+        id: "presentation",
+        type: "slideshow",
+        eyebrow: "Bläddra",
+        title: "Presentation: Hinduism och buddhism",
+        description: "32 bilder om hinduism och buddhism. Buddhismdelen börjar på bild 21. Använd pilarna, tangentbordets höger- och vänsterpil eller miniatyrerna för att bläddra.",
+        images: hinduismBuddhismSlides,
+      },
+      {
+        id: "checklista",
+        type: "document",
+        eyebrow: "Repetera",
+        title: "Checklista inför prov: Hinduism och buddhism",
+        description: "Repetera återfödelse, hinduismens gudar och kastsystemet, buddhismens uppkomst samt synen på lidande och begär. Kontrollera också att du kan checklistans begrepp.",
+        images: ["content/hinduism-och-buddhism/documents/checklista-01.webp"],
+      },
+    ],
+  },
   "flodkulturen-i-egypten": {
     id: "flodkulturen-i-egypten",
     subjectId: "historia",
