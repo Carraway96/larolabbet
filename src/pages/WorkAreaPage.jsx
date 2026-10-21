@@ -1,6 +1,7 @@
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import ContentBlock from "../components/ContentBlocks";
+import AreaNavigation from "../components/AreaNavigation";
 import Icon from "../components/Icon";
 import { getTopic, workAreas } from "../data/content";
 
@@ -43,6 +44,7 @@ export default function WorkAreaPage() {
         </div>
       </section>
 
+      {areaId === "demokrati-diktatur-medier" && <AreaNavigation />}
       <nav className="on-page-nav" aria-label="På den här sidan">
         <span>På sidan</span>
         {area.blocks.map((block, index) => <button key={block.id} type="button" onClick={() => scrollToBlock(block.id)}><b>0{index + 1}</b>{block.title}</button>)}
