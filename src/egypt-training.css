@@ -1,0 +1,33 @@
+.egypt-hero { background: linear-gradient(110deg, #f0dfb8, #fbf5e7 75%); }
+.egypt-card-bank, .egypt-timeline, .egypt-chain-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.egypt-card-bank { margin-bottom: 24px; }
+.egypt-card-bank .match-card { min-height: 64px; margin: 0; }
+.egypt-card-bank button:disabled { opacity: .5; cursor: default; }
+.egypt-time-direction { font-size: .8rem; color: var(--ink-soft); margin: 22px 0 12px; }
+.egypt-era-group { min-width: 0; }
+.egypt-era { display: flex; flex-direction: column; gap: 10px; width: 100%; min-height: 192px; padding: 20px; border: 2px solid #cdb584; border-top: 6px solid #b78b43; border-radius: 12px; background: #faf4e5; color: var(--ink); text-align: left; cursor: pointer; }
+.egypt-era strong { font-family: "Fraunces", Georgia, serif; font-size: 1.3rem; }
+.egypt-era span:not(.eyebrow) { font-size: .8rem; }
+.egypt-era small { font-size: .8rem; line-height: 1.6; color: var(--ink-soft); }
+.egypt-era .eyebrow { margin: 0; }
+.egypt-era.empty { border-style: dashed; background: #faf9f5; }
+.egypt-era:hover:not(:disabled) { border-color: var(--sage); background: #edf4ee; }
+.egypt-era:disabled { cursor: default; opacity: 1; }
+.egypt-gap { font-size: .76rem; line-height: 1.6; padding: 12px; background: #f0ede5; border-radius: 8px; color: var(--ink-soft); }
+.egypt-gap span { font-weight: bold; }
+.egypt-placed-events { list-style: none; padding: 0; margin: 12px 0; }
+.egypt-placed-events li { display: flex; align-items: flex-start; gap: 7px; padding: 10px; margin-bottom: 8px; border-radius: 8px; background: #edf6ee; font-size: .76rem; line-height: 1.6; }
+.egypt-placed-events svg { flex-shrink: 0; margin-top: 3px; color: #39705a; }
+.egypt-chain { list-style: none; display: grid; gap: 12px; padding: 0; margin: 0 0 24px; }
+.egypt-chain li { display: flex; align-items: center; gap: 12px; padding: 15px; border: 1px dashed #c9c9bd; border-radius: 12px; color: var(--ink-soft); font-size: .9rem; }
+.egypt-chain li.filled { border-style: solid; border-color: #a9cbb3; color: var(--ink); background: #edf6ee; }
+.egypt-chain li > span { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border-radius: 50%; background: #e8dfca; color: var(--ink); font-weight: bold; }
+.egypt-chain-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.egypt-selection { margin: 10px 0 0; font-size: .85rem; color: var(--ink-soft); }
+.egypt-training button:focus-visible { outline: 3px solid #1b77c2; outline-offset: 3px; }
+@media (max-width: 650px) {
+  .egypt-card-bank, .egypt-timeline, .egypt-chain-options { grid-template-columns: 1fr; }
+  .egypt-era { min-height: 88px; padding: 16px; }
+  .egypt-era small, .egypt-gap, .egypt-placed-events li { font-size: .85rem; }
+  .egypt-chain-options .match-card { margin: 0; }
+}
