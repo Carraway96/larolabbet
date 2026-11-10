@@ -45,6 +45,7 @@ export default function WorkAreaPage() {
       </section>
 
       {areaId === "demokrati-diktatur-medier" && <AreaNavigation />}
+      {areaId === "flodkulturen-i-egypten" && <AreaNavigation areaId={areaId} trainingLabel="Egyptens tre riken – spel" trainingPath="spel" />}
       <nav className="on-page-nav" aria-label="På den här sidan">
         <span>På sidan</span>
         {area.blocks.map((block, index) => <button key={block.id} type="button" onClick={() => scrollToBlock(block.id)}><b>0{index + 1}</b>{block.title}</button>)}
