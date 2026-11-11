@@ -1,0 +1,146 @@
+[
+  {
+    "image": "slide-01.webp"
+  },
+  {
+    "image": "slide-02.webp"
+  },
+  {
+    "image": "slide-03.webp"
+  },
+  {
+    "image": "slide-04.webp"
+  },
+  {
+    "image": "slide-05.webp"
+  },
+  {
+    "image": "slide-06.webp"
+  },
+  {
+    "image": "slide-07.webp"
+  },
+  {
+    "image": "slide-08.webp"
+  },
+  {
+    "image": "slide-09.webp"
+  },
+  {
+    "image": "slide-10.webp"
+  },
+  {
+    "image": "slide-11.webp"
+  },
+  {
+    "image": "slide-12.webp"
+  },
+  {
+    "image": "slide-13.webp"
+  },
+  {
+    "image": "slide-14.webp",
+    "background": "slide-14-background.webp",
+    "foreground": "slide-14-foreground.png",
+    "animation": {
+      "src": "slide-14.gif",
+      "crop": {
+        "l": 0.02053,
+        "t": 0.10948,
+        "r": 0.29105,
+        "b": 0.14245
+      },
+      "left": 2.8125,
+      "top": 25.13888888888889,
+      "width": 60.3283218503937,
+      "height": 65.55555555555556
+    }
+  },
+  {
+    "image": "slide-15.webp"
+  },
+  {
+    "image": "slide-16.webp",
+    "background": "slide-16-background.webp",
+    "foreground": "slide-16-foreground.png",
+    "animation": {
+      "src": "slide-16.gif",
+      "crop": {
+        "l": 0,
+        "t": 0,
+        "r": 0,
+        "b": 0
+      },
+      "left": 0.0,
+      "top": 0.0,
+      "width": 100.0,
+      "height": 100.0
+    }
+  },
+  {
+    "image": "slide-17.webp"
+  },
+  {
+    "image": "slide-18.webp",
+    "background": "slide-18-background.webp",
+    "foreground": "slide-18-foreground.png",
+    "animation": {
+      "src": "slide-18.gif",
+      "crop": {
+        "l": 0,
+        "t": 0,
+        "r": 0,
+        "b": 0
+      },
+      "left": 0.0,
+      "top": 0.0,
+      "width": 100.0,
+      "height": 100.0
+    }
+  },
+  {
+    "image": "slide-19.webp",
+    "background": "slide-19-background.webp",
+    "foreground": "slide-19-foreground.png",
+    "animation": {
+      "src": "slide-19.gif",
+      "crop": {
+        "l": 0,
+        "t": 0,
+        "r": 0,
+        "b": 0
+      },
+      "left": 0.0,
+      "top": 0.0,
+      "width": 100.0,
+      "height": 100.0
+    }
+  },
+  {
+    "image": "slide-20.webp"
+  },
+  {
+    "image": "slide-21.webp"
+  },
+  {
+    "image": "slide-22.webp",
+    "background": "slide-22-background.webp",
+    "foreground": "slide-22-foreground.png",
+    "animation": {
+      "src": "slide-22.gif",
+      "crop": {
+        "l": 0,
+        "t": 0,
+        "r": 0,
+        "b": 0
+      },
+      "left": 0.0,
+      "top": 0.0,
+      "width": 100.0,
+      "height": 100.0
+    }
+  },
+  {
+    "image": "slide-23.webp"
+  }
+]

@@ -145,6 +145,22 @@ Lägg bilderna i exempelvis `public/content/demokrati/slides/` och ange sökväg
 }
 ```
 
+### PowerPoint med animerade gif:ar
+
+För att bevara gif:arnas rörelse, beskärning och lagerordning kan PowerPoint-filer
+exporteras med följande skript (Windows med PowerPoint, Pillow och numpy):
+
+```powershell
+python scripts/prepare_ppt_assets.py "presentation.pptx" "public/content/jordens-inre-och-yttre-krafter/slides" --manifest "src/data/earthForcesSlides.json"
+```
+
+Manifestet innehåller stillbilder för miniatyrerna och separata bakgrunder,
+original-gif:ar och transparenta förgrunder för de animerade bilderna.
+`images` används som vanligt i bildspelsblocket; `animations` kopplar bildindex
+till gif:ens sökväg, beskärning, position, bakgrund och förgrund.
+Endast den valda presentationsbildens gif spelas, även i helskärm.
+Originalpresentationen öppnas skrivskyddad och ändras inte.
+
 ### Dokument utan nedladdningsknapp
 
 Det här är den rekommenderade modellen. PDF-sidorna görs om till webbilder, så originalfilen behöver inte publiceras:
