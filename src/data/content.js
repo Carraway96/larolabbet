@@ -1,3 +1,14 @@
+import earthForcesManifest from "./earthForcesSlides.json";
+
+const earthForcesPath = "content/jordens-inre-och-yttre-krafter/slides/";
+const earthForcesSlides = earthForcesManifest.map((slide) => `${earthForcesPath}${slide.image}`);
+const earthForcesAnimations = Object.fromEntries(earthForcesManifest.flatMap((slide, index) => slide.animation ? [[index, {
+  ...slide.animation,
+  src: `${earthForcesPath}${slide.animation.src}`,
+  background: `${earthForcesPath}${slide.background}`,
+  foreground: `${earthForcesPath}${slide.foreground}`,
+}]] : []));
+
 export const subjects = [
   {
     id: "samhallskunskap",
@@ -41,6 +52,14 @@ export const subjects = [
     tone: "sage",
     description: "Platser, landskap, resurser och människans livsmiljöer.",
     topics: [
+      {
+        id: "jordens-inre-och-yttre-krafter",
+        title: "Jordens inre och yttre krafter",
+        description: "Jordens uppbyggnad, plattornas rörelser och krafterna som formar landskapet.",
+        meta: "23 bilder · animerade illustrationer",
+        status: "published",
+        icon: "earth",
+      },
       { id: "kartan-och-varlden", title: "Kartan & världen", description: "Kartor, koordinater och geografiska mönster.", status: "planned", icon: "map" },
       { id: "klimat-och-vegetation", title: "Klimat & vegetation", description: "Klimatzoner, väder och jordens ekosystem.", status: "planned", icon: "cloud-sun" },
       { id: "resurser-och-hallbarhet", title: "Resurser & hållbarhet", description: "Naturresurser, konsumtion och hållbar utveckling.", status: "planned", icon: "leaf" },
@@ -137,6 +156,43 @@ const hinduismBuddhismSlides = Array.from(
 );
 
 export const workAreas = {
+  "jordens-inre-och-yttre-krafter": {
+    id: "jordens-inre-och-yttre-krafter",
+    subjectId: "geografi",
+    title: "Jordens inre och yttre krafter",
+    kicker: "Geografi",
+    lead: "Undersök hur jordens inre krafter bygger upp landskapet och hur vatten, vind, is och temperatur formar om det.",
+    duration: "Arbetsområde",
+    updated: "Uppdaterat november 2026",
+    goals: [
+      "Beskriva jordens lager och jordskorpans plattor",
+      "Förklara hur plattornas rörelser kan orsaka bergskedjor, vulkaner och jordbävningar",
+      "Förklara hur vittring, erosion och avlagring förändrar landskapet",
+      "Skilja mellan jordens inre och yttre krafter",
+    ],
+    blocks: [
+      {
+        id: "oversikt",
+        type: "text",
+        eyebrow: "Start",
+        title: "Det här ska vi undersöka",
+        paragraphs: [
+          "Varför uppstår berg, vulkaner och jordbävningar? Du undersöker jordens uppbyggnad och vad som händer när jordskorpans plattor möts eller glider isär. De inre krafterna kallas också endogena krafter.",
+          "Du lär dig också hur de yttre, exogena krafterna förändrar jordytan. Följ hur berg bryts ned genom vittring och hur material transporteras och avlagras, till exempel från erosion till ett delta.",
+        ],
+        callout: "Presentationen börjar med kartkunskap. Jordens inre och yttre krafter börjar på bild 12. Följ animationerna och öva på att förklara vad som händer med egna ord.",
+      },
+      {
+        id: "presentation",
+        type: "slideshow",
+        eyebrow: "Bläddra",
+        title: "Presentation: Inre och yttre krafter",
+        description: "23 bilder med animerade illustrationer. Använd pilarna, tangentbordets höger- och vänsterpil eller miniatyrerna för att bläddra. Du kan också visa presentationen i helskärm.",
+        images: earthForcesSlides,
+        animations: earthForcesAnimations,
+      },
+    ],
+  },
   "hinduism-och-buddhism": {
     id: "hinduism-och-buddhism",
     subjectId: "religion",

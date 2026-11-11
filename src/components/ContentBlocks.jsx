@@ -68,7 +68,7 @@ export function SlideshowBlock({ block }) {
       <BlockHeader block={block} icon={Presentation} />
       <figure className="slideshow" ref={figureRef} tabIndex="0" aria-label={`${block.title}, bild ${current + 1} av ${block.images.length}`}>
         <div className="slide-stage">
-          <img src={assetUrl(block.images[current])} alt={`${block.title} – presentationsbild ${current + 1}`} draggable="false" />
+          <SlideVisual key={current} image={block.images[current]} animation={block.animations?.[current]} alt={`${block.title} – presentationsbild ${current + 1}`} />
           <button className="slide-arrow previous" onClick={() => move(-1)} disabled={current === 0} aria-label="Föregående bild"><ChevronLeft /></button>
           <button className="slide-arrow next" onClick={() => move(1)} disabled={current === last} aria-label="Nästa bild"><ChevronRight /></button>
         </div>
@@ -87,6 +87,23 @@ export function SlideshowBlock({ block }) {
         </div>
       </figure>
     </section>
+  );
+}
+
+function SlideVisual({ image, animation, alt }) {
+  if (!animation) return <img src={assetUrl(image)} alt={alt} draggable="false" />;
+  const { crop } = animation;
+  const visibleWidth = 1 - crop.l - crop.r;
+  const visibleHeight = 1 - crop.t - crop.b;
+
+  return (
+    <div className="animated-slide" role="img" aria-label={alt}>
+      <img className="animated-slide-background" src={assetUrl(animation.background)} alt="" draggable="false" />
+      <div className="animated-slide-window" style={{ left: `${animation.left}%`, top: `${animation.top}%`, width: `${animation.width}%`, height: `${animation.height}%` }}>
+        <img src={assetUrl(animation.src)} alt="" draggable="false" style={{ left: `${-100 * crop.l / visibleWidth}%`, top: `${-100 * crop.t / visibleHeight}%`, width: `${100 / visibleWidth}%`, height: `${100 / visibleHeight}%` }} />
+      </div>
+      <img className="animated-slide-foreground" src={assetUrl(animation.foreground)} alt="" draggable="false" />
+    </div>
   );
 }
 
