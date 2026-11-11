@@ -199,6 +199,45 @@ Om du hellre vill använda webbläsarens PDF-visare lägger du PDF-filen i `publ
 
 Webbplatsen döljer visningsprogrammets verktygsfält där webbläsaren tillåter det. Viktigt: material som en besökare kan se i en webbläsare kan aldrig skyddas helt från kopiering eller nedladdning. Webbildsmodellen ovan gör däremot att original-PDF-filen inte behöver exponeras.
 
+## Världskollen – geografispel
+
+Spelet finns på `#/arbetsomrade/jordens-inre-och-yttre-krafter/geografispel`
+och är länkat som egen flik i arbetsområdet. Fyra nivåer tränar världsdel med
+tre alternativ, världsdel med sex alternativ, landets läge på en delkarta och läget på
+världskartan. Trösklarna är 5/6, 6/8, 6/8 och 8/10 rätt på första försöket.
+
+Eleven väljer ett preliminärt svar och låser det, eller väljer ”Jag vet inte ännu”.
+Alla svar ger återkoppling med rätt plats, världsdel och geografisk beskrivning.
+Landet markeras på kartan först efter rätt svar, även på första nivån.
+Frågan visar landets namn och en lokal SVG-flagga. Under spelandet visas en
+kompakt vy med kartan och svarsrutan bredvid varandra på större skärmar.
+Förklaringen kan fällas ut utan att ta plats under varje fråga.
+Fel sparas för repetition på samma nivå. Repetition blandar missade länder med
+andra frågor och låser inte upp nivåer. Landurval och ordningen på svar/platser
+varieras mellan omgångarna. Första nybörjarfrågan är alltid Sverige.
+
+Framsteg och pågående omgång sparas i `localStorage` under
+`larolabbet-geography-v1`, utan namn eller konton. Sparningen gäller samma
+webbläsare, enhet och webbplatsadress; den kan nollställas i spelet.
+Otillgänglig eller skadad lagring hindrar inte spelandet.
+
+Frågeländer och nivåer finns i `src/data/geographyGame.js`, spelreglerna i
+`src/data/geographyEngine.js` och kartgeometrin i `src/data/geographyMap.json`.
+Kartan kommer från Natural Earth v5.1.2 (public domain) och projiceras med
+Natural Earth I. Kartan levereras lokalt; inga kartanrop görs under spelandet.
+`d3-geo` behövs endast för att generera kartan, inte i webbläsaren.
+
+```powershell
+npm run prepare:geography-map
+npm run test:geography
+```
+
+Kartskriptet accepterar även en lokalt hämtad källfil:
+`node scripts/prepare_geography_map.mjs ne_110m_admin_0_countries.geojson`.
+
+Flaggorna i `public/assets/flags/` kommer från flag-icons 7.6.0
+(https://github.com/lipis/flag-icons). MIT-licensen följer med i samma mapp.
+
 ## Byt eller lägg till logotyper
 
 Huvudloggan ligger i `public/assets/larolabbet-logo.png`. Ersätt filen med en ny bild med samma namn för att byta den överallt.
