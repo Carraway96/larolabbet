@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:geography": "node --test scripts/geography_game.test.mjs",
+    "prepare:geography-map": "node scripts/prepare_geography_map.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
@@ -19,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/js": "latest",
+    "d3-geo": "^3.1.2",
     "eslint": "latest",
     "eslint-plugin-react-hooks": "latest",
     "eslint-plugin-react-refresh": "latest",
