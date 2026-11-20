@@ -56,8 +56,8 @@ export const starterIds = ["SWE", "BRA", "JPN", "ZAF", "AUS", "CAN"];
 export const levels = [
   { id: 0, title: "Börja i världen", subtitle: "Kända länder · tre världsdelar", mode: "continent", count: 6, required: 5, description: "Vilken världsdel ligger landet i? Vi börjar med Sverige. Landets plats visas när du svarar rätt.", icon: "compass" },
   { id: 1, title: "Fler länder", subtitle: "Utan markering · sex världsdelar", mode: "continent", count: 8, required: 6, description: "Nu får du fler länder och väljer bland alla sex bebodda världsdelar. Platsen visas när du har svarat.", icon: "globe" },
-  { id: 2, title: "Hitta på delkartan", subtitle: "Förstorad karta · sex platser", mode: "regional", count: 8, required: 6, description: "Du vet världsdel. Nu ska du hitta själva landet bland numrerade platser på en förstorad karta.", icon: "map" },
-  { id: 3, title: "Hela världskartan", subtitle: "Världskarta · åtta platser", mode: "world", count: 10, required: 8, description: "Hitta länder över hela världen. Nu finns åtta möjliga platser och ingen världsdel som ledtråd.", icon: "flag" },
+  { id: 2, title: "Hela världskartan", subtitle: "Världskarta · åtta platser", mode: "world", count: 10, required: 8, description: "Hitta landet bland åtta platser utspridda över världskartan.", icon: "flag" },
+  { id: 3, title: "Hitta på delkartan", subtitle: "Förstorad karta · sex platser", mode: "regional", count: 8, required: 6, description: "Hitta landet på en förstorad delkarta där flera av alternativen ligger nära varandra.", icon: "map" },
 ];
 
 export const regionalCandidates = {

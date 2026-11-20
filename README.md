@@ -203,8 +203,8 @@ Webbplatsen döljer visningsprogrammets verktygsfält där webbläsaren tillåte
 
 Spelet finns på `#/arbetsomrade/jordens-inre-och-yttre-krafter/geografispel`
 och är länkat som egen flik i arbetsområdet. Fyra nivåer tränar världsdel med
-tre alternativ, världsdel med sex alternativ, landets läge på en delkarta och läget på
-världskartan. Trösklarna är 5/6, 6/8, 6/8 och 8/10 rätt på första försöket.
+tre alternativ, världsdel med sex alternativ, landets läge på världskartan och läget på
+en delkarta. Trösklarna är 5/6, 6/8, 8/10 och 6/8 rätt på första försöket.
 
 Eleven väljer ett preliminärt svar och låser det, eller väljer ”Jag vet inte ännu”.
 Alla svar ger återkoppling med rätt plats, världsdel och geografisk beskrivning.

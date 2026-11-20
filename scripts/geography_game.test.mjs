@@ -44,7 +44,7 @@ test('teacher result keeps review distinct from level completion and map skills 
   assert.equal(review.status, 'Repetition genomförd');
   for (const id of [2, 3]) {
     const result = summarizeGeographyRound(complete(startRound(base, id, false, random)).round);
-    assert.equal(result.activity, id === 2 ? 'Hitta länder på en delkarta' : 'Hitta länder på världskartan');
+    assert.equal(result.activity, id === 2 ? 'Hitta länder på världskartan' : 'Hitta länder på en delkarta');
     assert.equal(result.score, levels[id].count);
   }
 });
@@ -109,6 +109,24 @@ test('saved progress resumes a locked question and rejects corrupt data', () => 
   assert.equal(parseProgress(JSON.stringify(missingAnswer)), null);
 });
 
+test('old progress keeps scores, missed countries and the active round on the same map', () => {
+  const regional = answerQuestion(startRound({ ...freshProgress(), unlocked: 3 }, 3, false, random), null);
+  const old = {
+    version: 1,
+    unlocked: 2,
+    best: [6, 8, 4, 0],
+    misses: regional.misses.map(m => ({ ...m, levelId: 2 })),
+    round: { ...regional.round, levelId: 2, questions: regional.round.questions.map(q => ({ ...q, levelId: 2 })) },
+  };
+  const migrated = parseProgress(JSON.stringify(old));
+  assert.equal(migrated.version, 2);
+  assert.equal(migrated.unlocked, 3);
+  assert.deepEqual(migrated.best, [6, 8, 0, 4]);
+  assert.deepEqual(migrated.round, regional.round);
+  assert.deepEqual(migrated.misses, regional.misses);
+  assert.deepEqual(parseProgress(JSON.stringify(migrated)), migrated);
+});
+
 test('every target and distractor has real map geometry; candidates and correct answers are unique', () => {
   const mapped = new Map(map.countries.map(c => [c.id, c]));
   assert.equal(mapped.size, 177);
@@ -123,7 +141,7 @@ test('every target and distractor has real map geometry; candidates and correct 
     assert.equal(p.round.questions.length, level.count);
     assert.equal(new Set(p.round.questions.map(q => q.countryId)).size, level.count);
     for (const q of p.round.questions) {
-      assert.equal(q.options.length, level.id === 0 ? 3 : level.id === 3 ? 8 : 6);
+      assert.equal(q.options.length, level.id === 0 ? 3 : level.mode === 'world' ? 8 : 6);
       assert.equal(q.options.includes(expected(q)), true);
       assert.equal(new Set(q.options).size, q.options.length);
       for (const option of q.options) assert.ok(level.mode === 'continent' ? continents.includes(option) : mapped.has(option));
