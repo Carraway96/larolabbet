@@ -3,6 +3,7 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { answerQuestion, freshProgress, nextQuestion, parseProgress, startRound } from '../src/data/geographyEngine.js';
 import { countries, countryById, continents, levels, regionalCandidates } from '../src/data/geographyGame.js';
+import { summarizeGeographyRound } from '../src/data/geographyResult.js';
 
 const map = JSON.parse(await readFile(new URL('../src/data/geographyMap.json', import.meta.url), 'utf8'));
 const random = () => 0.314159;
@@ -15,6 +16,38 @@ function complete(progress, correctCount = 100) {
   }
   return progress;
 }
+
+test('teacher result describes only the completed round and its actual skill', () => {
+  const pending = startRound(freshProgress(), 0, false, random);
+  assert.equal(summarizeGeographyRound(pending.round), null);
+  const p = complete(pending, 5);
+  const result = summarizeGeographyRound(p.round);
+  assert.equal(result.score, 5);
+  assert.equal(result.total, 6);
+  assert.equal(result.correct.length, 5);
+  assert.equal(result.practice.length, 1);
+  assert.equal(result.status, 'Nivån klarad');
+  assert.equal(result.activity, 'Koppla länder till rätt världsdel');
+  assert.deepEqual(result.practice.map(c => c.id), [p.round.questions[5].countryId]);
+  assert.equal(result.correct.some(c => c.id === result.practice[0].id), false);
+  const failed = summarizeGeographyRound(complete(pending, 0).round);
+  assert.equal(failed.status, 'Nivån behöver övas mer');
+  assert.equal(failed.correct.length, 0);
+  assert.equal(failed.practice.length, 6);
+});
+
+test('teacher result keeps review distinct from level completion and map skills from continent skills', () => {
+  const base = { ...freshProgress(), unlocked: 3, misses: [{ countryId: 'SWE', levelId: 0 }] };
+  const review = summarizeGeographyRound(complete(startRound(base, 0, true, random)).round);
+  assert.equal(review.review, true);
+  assert.equal(review.total, 3);
+  assert.equal(review.status, 'Repetition genomförd');
+  for (const id of [2, 3]) {
+    const result = summarizeGeographyRound(complete(startRound(base, id, false, random)).round);
+    assert.equal(result.activity, id === 2 ? 'Hitta länder på en delkarta' : 'Hitta länder på världskartan');
+    assert.equal(result.score, levels[id].count);
+  }
+});
 
 test('first round starts with Sweden and covers all six inhabited continents', () => {
   const p = startRound(freshProgress(), 0, false, random);
