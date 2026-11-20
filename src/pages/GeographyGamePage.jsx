@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, Compass, Flag, Globe2, LockKeyhole, Map, RotateCcw, Trophy } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Compass, Flag, Globe2, LockKeyhole, Map, RotateCcw } from "lucide-react";
 import { Link } from "react-router-dom";
 import AreaNavigation from "../components/AreaNavigation";
 import GeographyMap from "../components/GeographyMap";
+import GeographyResultCard from "../components/GeographyResultCard";
 import map from "../data/geographyMap.json";
 import { countries, countryById, levels } from "../data/geographyGame";
 import { answerQuestion, freshProgress, nextQuestion, parseProgress, startRound, STORAGE_KEY } from "../data/geographyEngine";
@@ -67,8 +68,14 @@ export default function GeographyGamePage() {
   const roundMisses = round ? progress.misses.filter(miss => miss.levelId === round.levelId) : [];
   const resultMisses = round?.questions.filter((_, index) => !round.answers[index]?.correct) || [];
   const completedLevels = progress.best.filter((best, index) => best >= levels[index].required).length;
+  const showingResult = !overview && finished;
+  const passed = !round?.review && score >= level.required;
+  const canContinue = level.id < 3 && (passed || (round?.review && progress.unlocked > level.id));
+  const resultHeading = round?.review ? "Repetitionen är klar"
+    : passed ? `Du klarade nivå ${level.id + 1}!`
+    : `Resultat för nivå ${level.id + 1}`;
 
-  return <div className={`geo-page ${playing ? "is-playing" : ""}`}>
+  return <div className={`geo-page ${playing ? "is-playing" : ""} ${showingResult ? "is-showing-result" : ""}`}>
     <header className="training-hero geo-hero">
       <Link className="back-link" to={`/arbetsomrade/${areaId}`}><ArrowLeft size={16} />Jordens inre och yttre krafter</Link>
       <div className="training-title-row"><div><span className="eyebrow">Geografi · länder & världsdelar</span><h1>Världskollen</h1><p>Från Sverige i Europa till länder över hela världen. En plats i taget.</p></div><span className="geo-hero-symbol" aria-hidden="true"><Globe2 size={72} /></span></div>
@@ -82,6 +89,7 @@ export default function GeographyGamePage() {
             <ul className="geo-rules"><li><Check size={18} />Välj först. Lås svaret när du har tänkt klart.</li><li><Check size={18} />Ett försök per fråga. Se rätt plats och lär av svaret.</li><li><Check size={18} />Missade länder kommer tillbaka i repetitionen.</li></ul>
             {round && !finished ? <><button className="button primary" onClick={openRound}>Fortsätt omgången <ArrowRight size={17} /></button><p className="geo-small">Nivå {round.levelId + 1} · {round.index} av {round.questions.length} frågor genomgångna</p></> : <button className="button primary" onClick={() => start(progress.unlocked)}>{progress.unlocked ? `Spela nivå ${progress.unlocked + 1}` : "Börja med Sverige"}<ArrowRight size={17} /></button>}
             <p className="geo-small">Ingen tidspress. Dina framsteg sparas i den här webbläsaren på den här enheten.</p>
+            {finished && <button className="geo-text-button" onClick={() => setOverview(false)}>Visa senaste resultatet</button>}
           </div><GeographyMap showLabels />
         </section>
         <div className="geo-journey-heading"><h2>Din väg över kartan</h2><span>{completedLevels} av 4 nivåer klarade</span></div>
@@ -101,12 +109,19 @@ export default function GeographyGamePage() {
         <details className="geo-teacher"><summary>För dig som undervisar</summary><p>Förslag: låt eleven säga världsdel och beskriva platsen med ett väderstreck eller ett grannland innan svaret låses. Återkom till missade länder vid nästa lektion. Rätt på första försöket räknas; omspel är nya omgångar.</p><p>Steg 1 har kända länder och tre svarsalternativ. Steg 2 ger fler länder och sex svarsalternativ. Steg 3 och 4 tränar läget utan landsnamn på kartan. Landets plats markeras först efter rätt svar. Repetition låser inte upp nivåer. Spelet innehåller {countries.length} målländer; småstater och länder i flera världsdelar ingår inte i frågorna om världsdelar.</p><p>Här används sju världsdelar: Europa, Asien, Afrika, Nordamerika, Sydamerika, Oceanien och Antarktis. Antarktis visas på kartan men har inga självständiga länder att placera. Kartan är en förenklad översikt och ytorna är inte exakta.</p></details>
         <div className="geo-reset">{confirmReset ? <div role="alertdialog" aria-label="Nollställ sparade framsteg"><p>Vill du ta bort alla sparade resultat och börja från nivå 1?</p><button className="button secondary" onClick={() => setConfirmReset(false)}>Behåll framstegen</button><button className="geo-text-button" onClick={() => { commit(freshProgress()); setConfirmReset(false); }}>Ja, nollställ</button></div> : <button className="geo-text-button" onClick={() => setConfirmReset(true)}><RotateCcw size={14} />Nollställ framsteg</button>}</div>
       </> : finished ? <section className="geo-results">
-        <span className="geo-result-icon"><Trophy size={36} /></span><span className="eyebrow">{round.review ? "Repetitionen klar" : `Nivå ${level.id + 1} · omgången klar`}</span>
-        <h2 tabIndex={-1} ref={node => node?.focus()}>{round.review ? "Varje repetition hjälper" : score >= level.required ? (level.id === 3 ? "Du har klarat världskartan!" : "Nästa steg är upplåst!") : "Du är på väg"}</h2>
+        <span className="eyebrow">Världskollen · {level.title}</span>
+        <h2 tabIndex={-1} ref={node => node?.focus()}>{resultHeading}</h2>
         <p className="geo-result-score"><strong>{score}</strong> / {round.questions.length}<span>rätt på första försöket i den här omgången</span></p>
-        <p>{round.review ? "Repetition tränar minnet. Spela en vanlig nivåomgång när du vill gå vidare." : score >= level.required ? `Du klarade nivån. ${resultMisses.length ? "Repetera gärna de länder du missade innan du fortsätter." : "Prova att beskriva ländernas lägen med egna ord."}` : `Du behöver ${level.required} av ${level.count} rätt för att gå vidare. Öva på platserna nedan och prova sedan en ny omgång.`}</p>
+        {!canContinue && !round.review && <p>{passed ? "Det här var sista nivån." : `Du behöver ${level.required} av ${level.count} rätt för att klara nivån.`}</p>}
+        <GeographyResultCard round={round} nextAction={canContinue
+          ? <button className="button primary" onClick={() => start(level.id + 1)}>Fortsätt till nivå {level.id + 2}<ArrowRight size={17} aria-hidden="true" /></button>
+          : <button className="button primary" onClick={() => passed ? setOverview(true) : start(level.id)}>{passed ? "Till nivåöversikten" : `Spela nivå ${level.id + 1} igen`}<ArrowRight size={17} aria-hidden="true" /></button>} />
         {resultMisses.length > 0 && <div className="geo-review-list"><h3>Ta med dig till nästa omgång</h3>{resultMisses.map(item => <p key={item.countryId}><strong>{countryById[item.countryId].name} · {countryById[item.countryId].continent}</strong><span>{countryById[item.countryId].clue}</span></p>)}</div>}
-        <div className="geo-result-actions">{!round.review && score >= level.required && level.id < 3 && <button className="button primary" onClick={() => start(level.id + 1)}>Vidare till nivå {level.id + 2}<ArrowRight size={17} /></button>}{roundMisses.length > 0 && <button className="button secondary" onClick={() => start(level.id, true)}>Repetera missade länder<RotateCcw size={17} /></button>}<button className="button secondary" onClick={() => start(level.id)}>Ny nivåomgång</button><button className="geo-text-button" onClick={() => setOverview(true)}>Alla nivåer</button></div>
+        <div className="geo-result-actions">
+          {roundMisses.length > 0 && <button className="button secondary" onClick={() => start(level.id, true)}>Repetera missade länder<RotateCcw size={17} aria-hidden="true" /></button>}
+          {(canContinue || passed) && <button className="button secondary" onClick={() => start(level.id)}>Spela nivån igen</button>}
+          {!(passed && level.id === 3) && <button className="geo-text-button" onClick={() => setOverview(true)}>Alla nivåer</button>}
+        </div>
       </section> : <section className="geo-play" aria-label="Spelomgång">
         <div className="geo-play-top"><button className="geo-text-button" onClick={() => setOverview(true)}><ArrowLeft size={16} />Alla nivåer</button><span>{round.review ? "Repetition" : `Nivå ${level.id + 1}`} · {level.title}</span></div>
         <div className="geo-round-progress"><span>Fråga {round.index + 1} av {round.questions.length}</span><progress value={round.index} max={round.questions.length} aria-label="Genomgångna frågor" /><span>{score} rätt</span></div>

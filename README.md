@@ -221,6 +221,14 @@ Framsteg och pågående omgång sparas i `localStorage` under
 webbläsare, enhet och webbplatsadress; den kan nollställas i spelet.
 Otillgänglig eller skadad lagring hindrar inte spelandet.
 
+Efter en avslutad nivåomgång eller repetition erbjuds en resultatbild till läraren.
+Den visar nivån, vilken färdighet som tränades, rätta svar och länder att öva mer på.
+Bilden gäller den aktuella omgången, inte alla länder på nivån. Eleven kan ange
+ett namn som bara används i bilden, förhandsvisa bilden, kopiera den som PNG
+eller spara den som fil. Vid nekad eller saknad bildkopiering visas instruktioner
+för att spara i stället. Ingen bild skickas automatiskt. Det senaste avslutade
+resultatet kan öppnas igen från nivåöversikten så länge ingen ny omgång ersatt det.
+
 Frågeländer och nivåer finns i `src/data/geographyGame.js`, spelreglerna i
 `src/data/geographyEngine.js` och kartgeometrin i `src/data/geographyMap.json`.
 Kartan kommer från Natural Earth v5.1.2 (public domain) och projiceras med
