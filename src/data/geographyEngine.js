@@ -1,7 +1,7 @@
 import { continents, countries, countryById, levels, regionalCandidates, starterIds } from "./geographyGame.js";
 
 export const STORAGE_KEY = "larolabbet-geography-v1";
-export const freshProgress = () => ({ version: 1, unlocked: 0, best: [0, 0, 0, 0], misses: [], round: null });
+export const freshProgress = () => ({ version: 2, unlocked: 0, best: [0, 0, 0, 0], misses: [], round: null });
 
 export function shuffle(items, random = Math.random) {
   const result = [...items];
@@ -96,7 +96,21 @@ export function nextQuestion(progress) {
 export function parseProgress(raw) {
   try {
     const p = JSON.parse(raw);
-    if (p?.version !== 1 || !Number.isInteger(p.unlocked) || p.unlocked < 0 || p.unlocked > 3 ||
+    if (p?.version === 1 && Array.isArray(p.best) && p.best.length === 4 &&
+      Number.isInteger(p.unlocked) && p.unlocked >= 0 && p.unlocked <= 3) {
+      // Keep results and questions with their map, even when its level number changes.
+      const moveLevel = id => id === 2 ? 3 : id === 3 ? 2 : id;
+      [p.best[2], p.best[3]] = [p.best[3], p.best[2]];
+      p.misses = p.misses.map(m => ({ ...m, levelId: moveLevel(m.levelId) }));
+      if (p.round) {
+        if (p.round.levelId > p.unlocked) return null;
+        p.round.levelId = moveLevel(p.round.levelId);
+        p.round.questions = p.round.questions.map(q => ({ ...q, levelId: moveLevel(q.levelId) }));
+        p.unlocked = Math.max(p.unlocked, p.round.levelId);
+      }
+      p.version = 2;
+    }
+    if (p?.version !== 2 || !Number.isInteger(p.unlocked) || p.unlocked < 0 || p.unlocked > 3 ||
       !Array.isArray(p.best) || p.best.length !== 4 || p.best.some((n, i) => !Number.isInteger(n) || n < 0 || n > levels[i].count) ||
       !Array.isArray(p.misses) || p.misses.length > countries.length * 4 || p.misses.some(m => !countryById[m.countryId] || !levels[m.levelId])) return null;
     const r = p.round;

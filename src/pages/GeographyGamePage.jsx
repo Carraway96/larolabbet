@@ -10,7 +10,7 @@ import { answerQuestion, freshProgress, nextQuestion, parseProgress, startRound,
 import "../geography-game.css";
 
 const areaId = "jordens-inre-och-yttre-krafter";
-const icons = [Compass, Globe2, Map, Flag];
+const icons = { compass: Compass, globe: Globe2, map: Map, flag: Flag };
 const mapById = Object.fromEntries(map.countries.map(country => [country.id, country]));
 
 function readSession() {
@@ -94,7 +94,7 @@ export default function GeographyGamePage() {
         </section>
         <div className="geo-journey-heading"><h2>Din väg över kartan</h2><span>{completedLevels} av 4 nivåer klarade</span></div>
         <div className="geo-levels">{levels.map((item, index) => {
-          const Icon = icons[index];
+          const Icon = icons[item.icon];
           const locked = index > progress.unlocked;
           const passed = progress.best[index] >= item.required;
           const misses = progress.misses.filter(m => m.levelId === index).length;
